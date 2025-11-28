@@ -1,0 +1,37 @@
+GET http://localhost:3005/usuario
+
+###
+POST http://localhost:3005/usuario
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Romaina",
+  "email": "juan@test.com",
+  "dni": "12345678",
+  "password": "123456",
+  "telefono": "987654321",
+  "direccion": "Av. Universitaria 123",
+  "ciudad": "Lima",
+  "admin": false
+}
+###
+POST http://localhost:3005/carrito
+Content-Type: application/json
+
+{
+  "idusuario": 1
+}
+
+###
+
+PUT http://localhost:3005/usuario
+Content-Type: application/json
+
+{
+  "id":1,
+  "nombre": "Juan",
+  "apellido": "Romaina"
+}
+###
+GET http://localhost:3005/usuario/1
