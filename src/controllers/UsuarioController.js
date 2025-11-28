@@ -20,7 +20,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     const object = req.body;
     const updatedObj = await repository.update(object);
-    return sendResults(updatedObj, res, "Error al actualizar orden.");
+    return sendResults(updatedObj, res, "Error al actualizar usuario.");
 }
 
 
