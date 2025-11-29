@@ -31,7 +31,9 @@ Content-Type: application/json
 {
   "id": 1,
   "nombre": "Laptop HP Pavilion 2024",
+  "nombre": "Laptop HP Pavilion 2024",
   "descripcion": "Laptop actualizada de 15 pulgadas, 16GB RAM, 512GB SSD",
+  "marca": "HP",
   "marca": "HP",
   "stock": 15,
   "precio": 899.99,
@@ -42,4 +44,13 @@ Content-Type: application/json
 ###
 
 # ELIMINAR PRODUCTO
+
+DELETE http://localhost:3005/producto/1
+
+
+
+###
+
+# ELIMINAR PRODUCTO
+
 DELETE http://localhost:3005/producto/1
