@@ -29,10 +29,14 @@ const Producto = sequelize.define('producto', {
   imagen: {
     type: DataTypes.STRING(255)
   },
-  idcategoria: {
+
+  
+  idCategoria: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    field: 'idcategoria'
   }
+
 }, {
   freezeTableName: true,
   timestamps: false,

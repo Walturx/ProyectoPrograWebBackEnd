@@ -36,4 +36,4 @@ Content-Type: application/json
 ###
 
 ### ELIMINAR CATEGORÍA (Admin)
-DELETE http://localhost:3005/categoria/1
+DELETE http://localhost:3005/categoria/5

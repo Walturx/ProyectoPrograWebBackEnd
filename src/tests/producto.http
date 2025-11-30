@@ -19,8 +19,9 @@ Content-Type: application/json
   "stock": 10,
   "precio": 799.99,
   "imagen": "laptop-hp.jpg",
-  "idcategoria": 1
+  "idCategoria": 1
 }
+
 
 ###
 
@@ -31,15 +32,14 @@ Content-Type: application/json
 {
   "id": 1,
   "nombre": "Laptop HP Pavilion 2024",
-  "nombre": "Laptop HP Pavilion 2024",
   "descripcion": "Laptop actualizada de 15 pulgadas, 16GB RAM, 512GB SSD",
-  "marca": "HP",
   "marca": "HP",
   "stock": 15,
   "precio": 899.99,
   "imagen": "laptop-hp-2024.jpg",
-  "idcategoria": 1
+  "idCategoria": 1
 }
+
 
 ###
 
