@@ -10,6 +10,22 @@ const findAll = async (req, res) => {
   }
 };
 
+const findByUsuario = async (req, res) => {
+  try {
+    const { idusuario } = req.params;
+    const ordenes = await repository.findByUsuario(idusuario);
+    
+    if (!ordenes) {
+      return res.status(404).json({ message: "No se encontraron órdenes." });
+    }
+    
+    return res.status(200).json(ordenes);
+  } catch (error) {
+    return sendError(error, res);
+  }
+};
+// ------------------------------------------------
+
 const findOne = async (req, res) => {
   try {
     const id = req.params.id;
@@ -26,7 +42,6 @@ const create = async (req, res) => {
     const object = req.body;
     const createdObj = await repository.create(object);
 
-    // Validar que se creó correctamente
     if (!createdObj) {
       return sendResults(createdObj, res, 'Error al crear orden.');
     }
@@ -49,6 +64,7 @@ const create = async (req, res) => {
     } catch (err) {
       console.error("⚠️ No se pudo enviar al webhook N8N:", err.message);
     }
+    // =======================================================================
 
     return sendResults(createdObj, res, 'Error al crear orden.');
   } catch (error) {
@@ -84,4 +100,11 @@ const sendError = (error, res) => {
   return res.status(500).json({ message: "Error interno en servidor.", error: error.message });
 };
 
-export default { findAll, findOne, create, update, remove };
+export default { 
+  findAll, 
+  findOne, 
+  findByUsuario, 
+  create, 
+  update, 
+  remove 
+};
