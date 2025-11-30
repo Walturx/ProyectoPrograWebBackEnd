@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "email": "aiden@example.com",
-  "password": "AidenNuevo123"
+  "password": "Aiden123"
 }
 
 ###
@@ -38,7 +38,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaWRlbkBleGFtcGxlLmNvbSIsIm5vbWJyZSI6IkFpZGVuIEdhbWVyIiwiaWF0IjoxNzY0NTM0NTkxLCJleHAiOjE3NjUxMzkzOTF9.RDpPquLvaTUo0FTIUaoj7cng6ZcHHDrVGI3H_tHfXZI
 
 {
-  "passwordActual": "AidenNuevo123",
-  "passwordNueva": "AidenActual123"
+  "passwordActual": "AidenActual123",
+  "passwordNueva": "Aiden123"
 }
  

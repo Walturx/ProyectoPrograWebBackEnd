@@ -128,8 +128,19 @@ const cambiarPassword = async (id, passwordActual, passwordNueva) => {
   }
 };
 
+export const cambiarEstadoUsuario = async (id, nuevoEstado) => {  
+  const usuario = await Usuario.findByPk(id);
+  if (!usuario) throw new Error("Usuario no encontrado");
+
+  usuario.estado = nuevoEstado;
+  await usuario.save();
+
+  return usuario;
+};
+
 export default {
   registrar,
   login,
-  cambiarPassword
+  cambiarPassword,
+  cambiarEstadoUsuario
 };

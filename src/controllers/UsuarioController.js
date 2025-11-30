@@ -87,6 +87,19 @@ const changePassword = async (req, res) => {
   return res.status(200).json(result);
 };
 
+// ============ Actualizar estado ======================
+ const cambiarEstado = async (req, res) =>{
+  const { id } = req.params;
+    const { estado } = req.body;
+
+    try {
+    const usuarioActualizado = await usuarioService.cambiarEstadoUsuario(id, estado);
+    res.json(usuarioActualizado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+ }
+
 // ============ RESPUESTA ======================
 const sendResults = (result, res, message) => {
   if (result)
@@ -102,5 +115,6 @@ export default {
   update,
   remove,
   changePassword,
-  login
+  login,
+  cambiarEstado
 };

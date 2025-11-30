@@ -27,6 +27,8 @@ const router = express.Router();
 router.post('/login', controller.login);      
 router.post('/registrar', controller.create); 
 
+router.put('/:id/estado', controller.cambiarEstado);
+
 // Rutas Protegidas (Requieren Token)
 router.get('/',authMiddleware,controller.findAll);
 router.get('/:id',authMiddleware,controller.findOne);
