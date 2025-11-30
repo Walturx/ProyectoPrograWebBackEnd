@@ -30,10 +30,10 @@ router.put('/', controller.update);
 router.delete('/:id', controller.remove);
 
 // Registro (usuario nuevo)
-router.post('/registrar', controller.register);
+router.post('/registrar', controller.create);
 
 // Login (devuelve token)
-router.post('/login', controller.login);
+//router.post('/login', controller.login);
 
 // Cambiar contraseña
 router.put('/:id/password', controller.changePassword);
