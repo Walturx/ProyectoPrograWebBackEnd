@@ -38,4 +38,4 @@ Content-Type: application/json
 ###
 
 ### ELIMINAR ORDEN
-DELETE http://localhost:3005/orden/101
+DELETE http://localhost:3005/orden/1

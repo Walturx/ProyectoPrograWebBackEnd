@@ -13,10 +13,10 @@ POST http://localhost:3005/categoria
 Content-Type: application/json
 
 {
-  "categoria": "Consolas 1",
-  "descripcion": "Consolas de videojuegos de última generación",
-  "imagenCat": "https://plazavea.vteximg.com.br/arquivos/categor%C3%ADa-VIDEOJUEGOS-PS5-D.png"
-}
+   "categoria": "Videojuegos",
+    "descripcion": "Juegos para distintas plataformas",
+    "imagenCat": "https://storegamesperu.com/files/images/productos/1697557602-marvels-spider-man-2-ps5-pre-orden-0.jpg"
+    }
 
 
 ###
@@ -27,13 +27,13 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "categoria": "Consolas PRO",
+  "categoria": "Consolas",
   "descripcion": "Consolas de videojuegos y accesorios oficiales",
-  "imagenCat": "https://midominio.com/img/consolas_update.jpg"
+  "imagenCat": "https://png.pngtree.com/png-vector/20250221/ourmid/pngtree-top-quality-playstation-5-console-isolated-png-image_15514648.png"
 }
 
 
 ###
 
 ### ELIMINAR CATEGORÍA (Admin)
-DELETE http://localhost:3005/categoria/1
+DELETE http://localhost:3005/categoria/2

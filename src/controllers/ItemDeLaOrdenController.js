@@ -11,6 +11,16 @@ const findOne = async (req, res) => {
     return sendResults(result, res, "Item de orden no encontrado.");
 }
 
+const findByOrden = async (req, res) => {
+  try {
+    const items = await itemOrdenRepository.findByOrden(req.params.idorden);
+    return res.json({ success: true, data: items });
+  } catch (error) {
+    console.error("ERROR findByOrden:", error);
+    return res.status(500).json({ success: false, message: "Error interno." });
+  }
+};
+
 const create = async (req, res) => {
     const object = req.body;
     const createdObj = await repository.create(object);
@@ -36,4 +46,4 @@ const sendResults = (result, res, message) => {
         return res.status(500).json({ message });
 }
 
-export default { findAll, findOne, create, update, remove };
+export default { findAll, findOne, findByOrden, create, update, remove };
