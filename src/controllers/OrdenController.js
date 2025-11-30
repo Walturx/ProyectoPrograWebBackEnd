@@ -10,6 +10,22 @@ const findAll = async (req, res) => {
     }
 };
 
+const findByUsuario = async (req, res) => {
+  try {
+    const { idusuario } = req.params;
+    const ordenes = await repository.findByUsuario(idusuario);
+    
+    if (!ordenes) {
+      return res.status(404).json({ message: "No se encontraron órdenes." });
+    }
+    
+    return res.status(200).json(ordenes);
+  } catch (error) {
+    return sendError(error, res);
+  }
+};
+// ------------------------------------------------
+
 const findOne = async (req, res) => {
     try {
         const id = req.params.id;
@@ -22,6 +38,17 @@ const findOne = async (req, res) => {
 };
 
 const create = async (req, res) => {
+
+  try {
+    const object = req.body;
+    const createdObj = await repository.create(object);
+
+    if (!createdObj) {
+      return sendResults(createdObj, res, 'Error al crear orden.');
+    }
+
+    // =========== 📩 Enviar a Webhook N8N ==========
+
     try {
         console.log("📦 PAYLOAD RECIBIDO EN BACKEND:", req.body);
         const {
@@ -50,7 +77,7 @@ const create = async (req, res) => {
             total,
             metododeentrega,
             direccionenvio,
-            metodopago,                             // 🔥 Guarda QR o TARJETA
+            metodopago,                             
             nrotarjeta: metodopago === "TARJETA" ? nrotarjeta : null,
             tipotarjeta: metodopago === "TARJETA" ? tipotarjeta : null,
             estado: "Pendiente"
@@ -86,6 +113,12 @@ const create = async (req, res) => {
     } catch (error) {
         return sendError(error, res);
     }
+
+
+    return sendResults(createdObj, res, 'Error al crear orden.');
+  } catch (error) {
+    return sendError(error, res);
+  }
 };
 
 
@@ -117,4 +150,12 @@ const sendError = (error, res) => {
     return res.status(500).json({ message: "Error interno en servidor.", error: error.message });
 };
 
-export default { findAll, findOne, create, update, remove };
+export default { 
+  findAll, 
+  findOne, 
+  findByUsuario, 
+  create, 
+  update, 
+  remove 
+};
+

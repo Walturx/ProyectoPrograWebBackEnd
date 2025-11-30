@@ -39,3 +39,7 @@ Content-Type: application/json
 
 ### ELIMINAR ORDEN
 DELETE http://localhost:3005/orden/1
+
+### Obtener órdenes de un usuario específico (con auth)
+GET http://localhost:3005/orden/usuario/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaWRlbkBleGFtcGxlLmNvbSIsIm5vbWJyZSI6IkFpZGVuIEdhbWVyIiwiaWF0IjoxNzY0NTM4NDE5LCJleHAiOjE3NjUxNDMyMTl9.TFYP5Lc4nslx32fF36ypw59eBiDptKWhLo300kaMCLU

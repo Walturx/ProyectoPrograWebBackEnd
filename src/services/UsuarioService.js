@@ -10,13 +10,8 @@ const generarToken = (usuario) => {
   );
 };
 
-
 const registrar = async (datos) => {
   try {
-    console.log('=== REGISTRO REQUEST ===');
-    console.log(datos); // Para ver exactamente qué llega desde el body
-
-    
     const { nombre, apellido, email, password, dni } = datos;
 
     if (!nombre || !apellido || !email || !password || !dni) {
@@ -56,39 +51,25 @@ const registrar = async (datos) => {
   }
 };
  
-
 const login = async ({ email, password }) => {
   try {
-    console.log('\n=== LOGIN REQUEST ===');
-    console.log('Email recibido:', email);
-    console.log('Password recibido:', password);
-
     if (!email || !password) {
-      console.log('Faltan credenciales');
       return { success: false, message: 'Credenciales incompletas.' };
     }
 
     const usr = await Usuario.findOne({ where: { email } });
-    console.log('Usuario encontrado:', usr ? usr.toJSON() : null);
 
     if (!usr) {
-      console.log('No existe usuario con ese email');
       return { success: false, message: 'Email o contraseña incorrectos.' };
     }
 
-    console.log('Hash guardado en BD:', usr.password);
-
     const valido = await bcrypt.compare(password, usr.password);
-    console.log('¿Password válido?:', valido);
 
     if (!valido) {
-      console.log('Password incorrecto');
       return { success: false, message: 'Email o contraseña incorrectos.' };
     }
 
     const token = generarToken(usr);
-
-    console.log('=== LOGIN OK ===\n');
 
     return {
       success: true,
@@ -102,7 +83,6 @@ const login = async ({ email, password }) => {
     return { success: false, message: 'Error en el servidor.' };
   }
 };
-
 
 const cambiarPassword = async (id, passwordActual, passwordNueva) => {
   try {
@@ -128,8 +108,61 @@ const cambiarPassword = async (id, passwordActual, passwordNueva) => {
   }
 };
 
+export const cambiarEstadoUsuario = async (id, nuevoEstado) => {  
+  const usuario = await Usuario.findByPk(id);
+  if (!usuario) throw new Error("Usuario no encontrado");
+
+  usuario.estado = nuevoEstado;
+  await usuario.save();
+
+  return usuario;
+};
+
+
+const solicitarRecuperacion = async (email) => {
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+    
+
+    if (!usuario) {
+      console.log(`[Seguridad] Intento de recuperación para email no existente: ${email}`);
+      return { success: true, message: 'Si el correo existe, se enviaron instrucciones.' };
+    }
+
+    console.log(`📧 SIMULACIÓN: Se envió un correo de recuperación a ${email}`);
+    
+    return { success: true, message: 'Correo de recuperación enviado.' };
+  } catch (error) {
+    console.error('ERROR SOLICITAR RECUPERACION:', error);
+    return { success: false, message: 'Error interno.' };
+  }
+};
+
+const restablecerPassword = async (email, nuevaPassword) => {
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+    if (!usuario) {
+      return { success: false, message: 'No se pudo restablecer la contraseña (Usuario no encontrado).' };
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(nuevaPassword, salt);
+
+    usuario.password = hashed;
+    await usuario.save();
+
+    return { success: true, message: 'Tu contraseña ha sido restablecida exitosamente.' };
+  } catch (error) {
+    console.error('ERROR RESTABLECER PASSWORD:', error);
+    return { success: false, message: 'Error al restablecer la contraseña.' };
+  }
+};
+
 export default {
   registrar,
   login,
-  cambiarPassword
+  cambiarPassword,
+  cambiarEstadoUsuario,
+  solicitarRecuperacion,
+  restablecerPassword
 };

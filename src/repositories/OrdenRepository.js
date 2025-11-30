@@ -4,7 +4,25 @@ import ItemDeLaOrden from '../models/ItemDeLaOrden.js';
 import Producto from '../models/Producto.js';
 
 class OrdenRepository extends RepositoryBase {
-  // Devuelve la orden con sus items y datos de producto
+  constructor() {
+    super(Orden);
+  }
+
+  // --- TU PARTE NUEVA: Buscar órdenes de un usuario ---
+  async findByUsuario(idusuario) {
+    try {
+      return await Orden.findAll({
+        where: { idusuario: idusuario },
+        order: [['fecha', 'DESC']] // Ordenar: las más recientes primero
+      });
+    } catch (error) {
+      console.error("Error al buscar órdenes por usuario:", error);
+      return null;
+    }
+  }
+  // ----------------------------------------------------
+
+  // (Esta función es la de tus compañeros, la dejamos IGUAL)
   async findDetail(id) {
     try {
       const orden = await Orden.findOne({ where: { id } });
@@ -42,6 +60,6 @@ class OrdenRepository extends RepositoryBase {
   }
 }
 
-const ordenRepository = new OrdenRepository(Orden);
+const ordenRepository = new OrdenRepository();
 
 export default ordenRepository;

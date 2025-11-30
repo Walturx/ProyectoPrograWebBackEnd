@@ -12,9 +12,9 @@ Content-Type: application/json
 {
   "nombre": "Aiden Gamer",
   "apellido": "RADO",
-  "email": "asasaaasda@assssa.com",
+  "email": "aiden@example.com",
   "dni": "112222214",
-  "password": "AidenGames",
+  "password": "AidenNuevo123",
   "telefono": "969750401",
   "direccion": "Av. Gamer 123",
   "ciudad": "Lima",
@@ -28,16 +28,36 @@ Content-Type: application/json
 
 {
   "email": "aiden@example.com",
-  "password": "AidenNuevo123"
+  "password": "NuevaClaveRecuperada123"
 }
 
+###
 
+PUT http://localhost:3005/usuario/1/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaWRlbkBleGFtcGxlLmNvbSIsIm5vbWJyZSI6IkFpZGVuIEdhbWVyIiwiaWF0IjoxNzY0NTM0NTkxLCJleHAiOjE3NjUxMzkzOTF9.RDpPquLvaTUo0FTIUaoj7cng6ZcHHDrVGI3H_tHfXZI
 
-PUT http://localhost:3005/usuario/3/password
+{
+  "passwordActual": "AidenActual123",
+  "passwordNueva": "Aiden123"
+}
+
+### Solicitar recuperación (Simulado)
+POST http://localhost:3005/usuario/recuperar-password
 Content-Type: application/json
 
 {
-  "passwordActual": "AidenGames123",
-  "passwordNueva": "AidenNuevo123"
+  "email": "aiden@example.com"
+}
+
+###
+
+### Restablecer contraseña (Olvido)
+POST http://localhost:3005/usuario/reset-password
+Content-Type: application/json
+
+{
+  "email": "aiden@example.com",
+  "newPassword": "NuevaClaveRecuperada123"
 }
  
