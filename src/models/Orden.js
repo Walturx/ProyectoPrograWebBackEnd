@@ -3,40 +3,44 @@ import { DataTypes } from 'sequelize'
 
 const Orden = sequelize.define('orden', {
 
-    id: { 
-        type: DataTypes.INTEGER, 
-        primaryKey: true, 
-        autoIncrement: true 
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-    idusuario: { 
-        type: DataTypes.INTEGER, 
-        allowNull: false 
+    idusuario: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    fecha: { 
-        type: DataTypes.DATE, 
-        defaultValue: DataTypes.NOW 
+    fecha: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-    subtotal: { 
-        type: DataTypes.DECIMAL(10,2) 
+    subtotal: {
+        type: DataTypes.DECIMAL(10, 2)
     },
-    total: { 
-        type: DataTypes.DECIMAL(10,2)
+    total: {
+        type: DataTypes.DECIMAL(10, 2)
     },
-    metododeentrega: { 
-        type: DataTypes.STRING(100) 
+    metododeentrega: {
+        type: DataTypes.STRING(100)
     },
-    direccionenvio: { 
-        type: DataTypes.STRING(255) 
+    metodopago: {
+        type: DataTypes.STRING(50),
+        allowNull: true
+    },
+    nrotarjeta: {
+        type: DataTypes.STRING(50)
+    },
+    tipotarjeta: {
+        type: DataTypes.STRING(50)
+    },
+    direccionenvio: {
+        type: DataTypes.STRING(255)
 
     },
-    nrotarjeta: { 
-        type: DataTypes.STRING(50) 
-    },
-    tipotarjeta: { 
-        type: DataTypes.STRING(50) 
-    },
-    estado: { 
-        type: DataTypes.STRING(50), defaultValue: 'pendiente' 
+    estado: {
+        type: DataTypes.STRING(50), defaultValue: 'pendiente'
     }
 
 }, {
