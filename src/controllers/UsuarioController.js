@@ -86,11 +86,30 @@ const changePassword = async (req, res) => {
 };
 
 // ============ RECUPERAR CONTRASEÑA (Olvido) ==============
+// ============ RECUPERAR CONTRASEÑA (Olvido) + Notificación n8n ==============
 const requestPasswordReset = async (req, res) => {
   const { email } = req.body;
+
   if (!email) return res.status(400).json({ message: 'El email es obligatorio' });
 
+  console.log(`📩 Solicitud de recuperación para: ${email}`);
+
   const result = await usuarioService.solicitarRecuperacion(email);
+
+  // Disparar workflow n8n solo si hay un email válido
+  try {
+    const webhookUrl = 'https://bytatileon.app.n8n.cloud/webhook/cambio_contrasena';
+    console.log(`🚀 Enviando webhook a: ${webhookUrl}`);
+
+    await axios.post(webhookUrl, {
+      email,
+      fechaSolicitud: new Date()
+    });
+    console.log("✅ Webhook enviado correctamente a n8n");
+  } catch (error) {
+    console.error("⚠ Error enviando webhook de solicitud de recuperación:", error.message);
+  }
+
   return res.status(200).json(result);
 };
 
@@ -99,23 +118,24 @@ const resetPassword = async (req, res) => {
   if (!email || !newPassword) return res.status(400).json({ message: 'Faltan datos' });
 
   const result = await usuarioService.restablecerPassword(email, newPassword);
-  
+
   if (result.success) return res.status(200).json(result);
   return res.status(400).json(result);
 };
 
-// ============ Actualizar estado ======================
- const cambiarEstado = async (req, res) =>{
-  const { id } = req.params;
-    const { estado } = req.body;
 
-    try {
+// ============ Actualizar estado ======================
+const cambiarEstado = async (req, res) => {
+  const { id } = req.params;
+  const { estado } = req.body;
+
+  try {
     const usuarioActualizado = await usuarioService.cambiarEstadoUsuario(id, estado);
     res.json(usuarioActualizado);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
- }
+}
 
 // ============ RESPUESTA ======================
 const sendResults = (result, res, message) => {
