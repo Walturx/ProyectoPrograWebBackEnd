@@ -172,13 +172,8 @@ const create = async (req, res) => {
         // Optional: Webhook
         try {
             await axios.post("https://bytatileon.app.n8n.cloud/webhook/nueva_orden", {
-                idorden: createdObj.id,
-                idusuario: createdObj.idusuario,
-                subtotal: createdObj.subtotal,
-                total: createdObj.total,
-                metododeentrega: createdObj.metododeentrega,
-                direccionenvio: createdObj.direccionenvio,
-                estado: createdObj.estado
+                ...createdObj,
+                ...req.body
             });
         } catch (err) {
             console.error("⚠️ No se pudo enviar al webhook N8N:", err.message);

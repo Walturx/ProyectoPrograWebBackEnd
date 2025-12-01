@@ -83,6 +83,7 @@ app.use('/carrito', carritoRoutes);
 app.use('/usuario', usuarioRouter);
 app.use('/categoria', categoriaRoutes);
 app.use('/orden', ordenRoutes);
+app.use('/admin/productos', productoRoutes); // Ruta alternativa para admin (debe ir ANTES de /producto)
 app.use('/producto', productoRoutes);
 app.use('/itemcarrito', itemCarritoRoutes);
 app.use('/itemorden', itemOrdenRoutes);
