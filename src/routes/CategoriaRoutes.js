@@ -3,7 +3,7 @@ import controller from '../controllers/CategoriaController.js';
 
 const router = express.Router();
 
-// Listado de Categorías (Admin) – aquí luego puedes poner middleware de auth/admin
+// Listado de Categorías (Admin) 
 router.get('/', controller.findAll);
 
 // Detalle de una categoría

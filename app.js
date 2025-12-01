@@ -2,13 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-//categoria routes para app
-//jean carlo
+
 import categoriaRoutes from './src/routes/CategoriaRoutes.js';
 
 
 app.use('/categoria', categoriaRoutes);
-//
+
 
 const app = express();
 

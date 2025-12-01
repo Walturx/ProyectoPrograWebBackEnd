@@ -8,7 +8,6 @@ class OrdenRepository extends RepositoryBase {
     super(Orden);
   }
 
-  // --- TU PARTE NUEVA: Buscar órdenes de un usuario ---
   async findByUsuario(idusuario) {
     try {
       return await Orden.findAll({
@@ -20,9 +19,8 @@ class OrdenRepository extends RepositoryBase {
       return null;
     }
   }
-  // ----------------------------------------------------
-
-  // (Esta función es la de tus compañeros, la dejamos IGUAL)
+  
+  
   async findDetail(id) {
     try {
       const orden = await Orden.findOne({ where: { id } });
