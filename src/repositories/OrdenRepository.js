@@ -44,7 +44,7 @@ class OrdenRepository extends RepositoryBase {
           nombre: prod?.nombre,
           imagen: prod?.imagen,
           descripcion: prod?.descripcion,
-          categoria: prod?.idCategoria 
+          categoria: prod?.idcategoria
         };
       });
 
