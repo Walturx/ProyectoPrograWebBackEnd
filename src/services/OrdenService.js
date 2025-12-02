@@ -58,7 +58,7 @@ const obtenerOrdenDetalle = async (id) => {
         precioUnitario: item.preciounitario,
         nombre: prod?.nombre,
         imagen: prod?.imagen,
-        descripcion: prod?.descripcion
+        descripcion: prod?.descripcion,
         categoriaNombre: categoria?.nombre 
       };
     });
