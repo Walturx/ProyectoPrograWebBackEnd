@@ -1,6 +1,7 @@
 import repository from '../repositories/OrdenRepository.js';
 import usuarioRepository from '../repositories/UsuarioRepository.js';
 import axios from "axios";
+import ordenService from '../services/OrdenService.js'; 
 
 const findAll = async (req, res) => {
     try {
@@ -29,7 +30,8 @@ const findByUsuario = async (req, res) => {
 const findOne = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await repository.findDetail(id);
+
+        const result = await ordenService.obtenerOrdenDetalle(id);
 
         return sendResults(result, res, 'Orden no encontrada.');
     } catch (error) {
@@ -43,7 +45,7 @@ const create = async (req, res) => {
 
         const {
             idusuario,
-            email, // Recibir email del body por si acaso
+            email, 
             subtotal,
             total,
             metododeentrega,
@@ -106,7 +108,6 @@ const create = async (req, res) => {
         } catch (err) {
             console.error("⚠️ No se pudo enviar al webhook N8N:", err.message);
         }
-
 
         return res.status(200).json({ success: true, data: createdObj });
 
