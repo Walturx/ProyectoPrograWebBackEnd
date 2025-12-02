@@ -50,28 +50,33 @@ const obtenerOrdenDetalle = async (id) => {
       ? await Producto.findAll({ where: { id: idsProductos } })
       : [];
 
+    // detalle item
+    const itemsDetallados = await Promise.all(
+      items.map(async (item) => {
+        const prod = productos.find(p => p.id === item.idproducto);
 
-    const idCategoria = prod?.idcategoria ?? prod?.idCategoria;
+        let categoriaNombre = null;
 
-    if (idCategoria) {
-      const categoria = await Categoria.findOne({ where: { id: idCategoria } });
-      categoriaNombre = categoria?.nombre ?? null;
-    }
+        if (prod) {
+          const idCategoria = prod.idcategoria ?? prod.idCategoria;
+          if (idCategoria) {
+            const categoria = await Categoria.findOne({ where: { id: idCategoria } });
+            categoriaNombre = categoria?.nombre ?? null;
+          }
+        }
 
-    const itemsDetallados = items.map(item => {
-      const prod = productos.find(p => p.id === item.idproducto);
-
-      return {
-        id: item.id,
-        idProducto: item.idproducto,
-        cantidad: item.cantidad,
-        precioUnitario: item.preciounitario,
-        nombre: prod?.nombre,
-        imagen: prod?.imagen,
-        descripcion: prod?.descripcion,
-        categoriaNombre
-      };
-    });
+        return {
+          id: item.id,
+          idProducto: item.idproducto,
+          cantidad: item.cantidad,
+          precioUnitario: item.preciounitario,
+          nombre: prod?.nombre,
+          imagen: prod?.imagen,
+          descripcion: prod?.descripcion,
+          categoriaNombre
+        };
+      })
+    );
 
     return {
       ...orden.dataValues,
