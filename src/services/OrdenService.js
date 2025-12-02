@@ -5,7 +5,6 @@ import Categoria from '../models/Categoria.js';
 
 const crearOrden = async (idusuario, items, datosEnvio, metodoPago) => {
   try {
-
     const subtotal = items.reduce((acum, item) => acum + item.precio * item.cantidad, 0);
     const total = subtotal;
 
@@ -50,7 +49,6 @@ const obtenerOrdenDetalle = async (id) => {
       ? await Producto.findAll({ where: { id: idsProductos } })
       : [];
 
-    // detalle item
     const itemsDetallados = await Promise.all(
       items.map(async (item) => {
         const prod = productos.find(p => p.id === item.idproducto);
@@ -73,7 +71,7 @@ const obtenerOrdenDetalle = async (id) => {
           nombre: prod?.nombre,
           imagen: prod?.imagen,
           descripcion: prod?.descripcion,
-          categoriaNombre: categoriaNombre
+          categoriaNombre
         };
       })
     );
