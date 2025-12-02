@@ -73,7 +73,7 @@ const obtenerOrdenDetalle = async (id) => {
           nombre: prod?.nombre,
           imagen: prod?.imagen,
           descripcion: prod?.descripcion,
-          categoriaNombre
+          categoriaNombre: categoriaNombre
         };
       })
     );
