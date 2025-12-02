@@ -43,7 +43,8 @@ class OrdenRepository extends RepositoryBase {
           precioUnitario: item.preciounitario,
           nombre: prod?.nombre,
           imagen: prod?.imagen,
-          descripcion: prod?.descripcion
+          descripcion: prod?.descripcion,
+          categoria: prod?.idCategoria 
         };
       });
 
