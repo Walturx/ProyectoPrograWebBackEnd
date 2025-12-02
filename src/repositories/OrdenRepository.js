@@ -2,7 +2,7 @@ import Orden from '../models/Orden.js';
 import RepositoryBase from './RepositoryBase.js';
 import ItemDeLaOrden from '../models/ItemDeLaOrden.js';
 import Producto from '../models/Producto.js';
-import Categoria from '../models/Categoria.js'; // 👈 IMPORTANTE
+import Categoria from '../models/Categoria.js'; 
 
 class OrdenRepository extends RepositoryBase {
   constructor() {
