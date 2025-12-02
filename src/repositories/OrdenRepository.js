@@ -2,6 +2,7 @@ import Orden from '../models/Orden.js';
 import RepositoryBase from './RepositoryBase.js';
 import ItemDeLaOrden from '../models/ItemDeLaOrden.js';
 import Producto from '../models/Producto.js';
+import Categoria from '../models/Categoria.js'; // 👈 IMPORTANTE
 
 class OrdenRepository extends RepositoryBase {
   constructor() {
@@ -19,24 +20,54 @@ class OrdenRepository extends RepositoryBase {
       return null;
     }
   }
-  
-  
+
   async findDetail(id) {
     try {
       const orden = await Orden.findOne({ where: { id } });
       if (!orden) return null;
 
+      // Items de la orden
       const items = await ItemDeLaOrden.findAll({
         where: { idorden: id }
       });
 
+      if (!items.length) {
+        return {
+          ...orden.dataValues,
+          items: []
+        };
+      }
+
+      // Productos relacionados
       const idsProductos = items.map(i => i.idproducto);
-      const productos = idsProductos.length
-        ? await Producto.findAll({ where: { id: idsProductos } })
-        : [];
+      const productos = await Producto.findAll({
+        where: { id: idsProductos }
+      });
+
+      // Categorías relacionadas
+      const idsCategorias = [
+        ...new Set(
+          productos.map(p => p.idcategoria ?? p.idCategoria).filter(Boolean)
+        )
+      ];
+
+      let categorias = [];
+      if (idsCategorias.length) {
+        categorias = await Categoria.findAll({
+          where: { id: idsCategorias }
+        });
+      }
 
       const itemsDetallados = items.map(item => {
         const prod = productos.find(p => p.id === item.idproducto);
+
+        const idCategoria =
+          prod?.idcategoria ??
+          prod?.idCategoria ??
+          null;
+
+        const categoria = categorias.find(c => c.id === idCategoria);
+
         return {
           idProducto: item.idproducto,
           cantidad: item.cantidad,
@@ -44,7 +75,8 @@ class OrdenRepository extends RepositoryBase {
           nombre: prod?.nombre,
           imagen: prod?.imagen,
           descripcion: prod?.descripcion,
-          categoria: prod?.idcategoria
+          categoriaId: idCategoria,
+          categoriaNombre: categoria?.nombre ?? null
         };
       });
 
