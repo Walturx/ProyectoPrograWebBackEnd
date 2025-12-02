@@ -1,6 +1,7 @@
 import ordenRepository from '../repositories/OrdenRepository.js';
 import itemDeLaOrdenRepository from '../repositories/ItemDeLaOrdenRepository.js';
 import Producto from '../models/Producto.js';
+import Categoria from '../models/Categoria.js'; 
 
 const crearOrden = async (idusuario, items, datosEnvio, metodoPago) => {
   try {
@@ -49,8 +50,17 @@ const obtenerOrdenDetalle = async (id) => {
       ? await Producto.findAll({ where: { id: idsProductos } })
       : [];
 
+
+    const idCategoria = prod?.idcategoria ?? prod?.idCategoria;
+
+    if (idCategoria) {
+      const categoria = await Categoria.findOne({ where: { id: idCategoria } });
+      categoriaNombre = categoria?.nombre ?? null;
+    }
+
     const itemsDetallados = items.map(item => {
       const prod = productos.find(p => p.id === item.idproducto);
+
       return {
         id: item.id,
         idProducto: item.idproducto,
@@ -59,7 +69,7 @@ const obtenerOrdenDetalle = async (id) => {
         nombre: prod?.nombre,
         imagen: prod?.imagen,
         descripcion: prod?.descripcion,
-        categoriaNombre: categoria?.nombre 
+        categoriaNombre
       };
     });
 
